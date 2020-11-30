@@ -5,7 +5,7 @@
         <div class="container">
           <div class="row mt-4">
             <Navbar />
-            <Main />
+            <History />
           </div>
         </div>
       </main>
@@ -14,19 +14,22 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import Header from '@/components/module/Header.vue'
 import Navbar from '@/components/module/Navbar.vue'
 import Footer from '@/components/module/Footer.vue'
-import Main from '@/components/module/Main.vue'
+import History from '@/components/module/History.vue'
 
 export default {
-  name: 'Home',
+  name: 'History',
   components: {
     Header,
     Navbar,
     Footer,
-    Main
+    History
   }
 }
 </script>
+
+<style scoped>
+
+</style>

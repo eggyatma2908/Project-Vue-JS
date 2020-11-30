@@ -5,7 +5,7 @@
         <div class="container">
           <div class="row mt-4">
             <Navbar />
-            <Main />
+            <Inputtransfer />
           </div>
         </div>
       </main>
@@ -14,19 +14,22 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import Header from '@/components/module/Header.vue'
 import Navbar from '@/components/module/Navbar.vue'
+import Inputtransfer from '@/components/module/Inputtransfer.vue'
 import Footer from '@/components/module/Footer.vue'
-import Main from '@/components/module/Main.vue'
 
 export default {
-  name: 'Home',
+  name: 'Inputamounttransfer',
   components: {
     Header,
     Navbar,
-    Footer,
-    Main
+    Inputtransfer,
+    Footer
   }
 }
 </script>
+
+<style scoped>
+
+</style>
