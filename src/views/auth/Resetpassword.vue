@@ -13,7 +13,7 @@
                 <div class="box">
                     <p class="paragraph3">Did You Forgot Your Password? Don’t Worry, You Can Reset Your Password In a Minutes.</p>
                     <p class="paragraph4">To reset your password, you must type your e-mail and we will send a link to your email and you will be directed to the reset password screens.</p>
-                    <Inputemail />
+                    <input class="input1" placeholder="Enter your e-mail" type="email" v-model="email" required/>
                     <Button Button="Confirm"/>
                 </div>
             </div>
@@ -22,13 +22,16 @@
 </template>
 
 <script>
-import Inputemail from '@/components/base/Inputemail.vue'
 import Button from '@/components/base/Button.vue'
 
 export default {
   name: 'Resetpassword',
+  data () {
+    return {
+      email: ''
+    }
+  },
   components: {
-    Inputemail,
     Button
   }
 }
@@ -131,11 +134,44 @@ body {
     color: #3a3d4299;
 }
 
+.input1{
+    margin-top: 40px;
+
+    outline: 0;
+    border-width: 0 0 2px;
+    width: 80%;
+    height: 50px;
+    border-color: rgba(169, 169, 169, 0.6);
+    background-image: url("../../assets/person.png");
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 40px;
+}
+
+.input1:valid {
+    border-color: #6379F4;
+    background-image: url("../../assets/person2.png");
+}
+
+.input1:invalid {
+    border-color: rgba(169, 169, 169, 0.6);
+    background-image: url("../../assets/person.png");
+}
+
 .box {
     display: flex;
     flex-direction: column;
     align-items: center;
 
     position: relative;
+}
+
+@media (max-width: 991px) {
+    .paragraph3 {
+        margin: 30px 0 0 0;
+    }
+    .button {
+        margin: 40px 0;
+    }
 }
 </style>

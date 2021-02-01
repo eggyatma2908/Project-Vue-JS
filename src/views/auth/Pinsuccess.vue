@@ -172,10 +172,19 @@ body {
     }
 }
 
+@media (max-width: 991px) {
+    .success {
+        margin: 50px 0 50px 95px;
+    }
+    .button {
+        margin: 45px 0;
+    }
+}
+
 /* Tablet */
 @media (max-width: 768px) {
     .success {
-        margin-left: 75px;
+        margin: 50px 0 50px 75px;
     }
 }
 

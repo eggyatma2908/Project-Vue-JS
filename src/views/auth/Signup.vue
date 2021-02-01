@@ -13,12 +13,23 @@
                 <div class="box">
                     <p class="paragraph3">Start Accessing Banking Needs With All Devices and All Platforms With 30.000++ Users</p>
                     <p class="paragraph4">Transfering money is eassier than ever, you can access Zwallet wherever you are. Desktop, laptop, mobile phone? we cover all of that for you!</p>
-                    <Inputusername v-model="username" @updateNilai="updateNilai"/>
-                    <Inputemail v-model="email" @updateNilai="updateNilai"/>
-                    <Inputpassword Id="myInput" Class="input2" PlaceholderValue="Enter your password" Password="password" v-model="password" @updateNilai="updateNilai"/>
-                    <img class="img3" src="../../assets/eye-crossed.png" alt="image3">
-                    <input class="checkbox" type="checkbox" @click="togglePassword()">
-                    <button class="button" type="submit" @click.prevent="signUp()">Sign Up</button>
+                    <div class="box-username">
+                        <input class="input1" placeholder="Enter your username" type="text" v-model.trim="$v.username.$model" :class="{ 'is-invalid': validationStatus($v.username) }" required/>
+                        <div class="invalid-feedback" v-if="!$v.username.required">Field is required.</div>
+                    </div>
+                    <div class="box-email">
+                        <input class="input2" placeholder="Enter your e-mail" type="email" v-model.trim="$v.email.$model" :class="{ 'is-invalid': validationStatus($v.email) }" required/>
+                        <div class="invalid-feedback" v-if="!$v.email.required">Field is required.</div>
+                        <div class="invalid-feedback" v-if="!$v.email.email">Invalid email</div>
+                    </div>
+                    <div class="box-password">
+                        <input type="password" id="myInput" class="input3" placeholder="Enter your password" password="password" v-model.trim="$v.password.$model" :class="{ 'is-invalid': validationStatus($v.password) }" required/>
+                        <div class="invalid-feedback" v-if="!$v.password.required">Field is required.</div>
+                        <div class="invalid-feedback" v-if="!$v.password.minLength">Field must have at least {{ $v.password.$params.minLength.min }} characters.</div>
+                        <img class="img3" src="../../assets/eye-crossed.png" alt="image3">
+                        <input class="checkbox" type="checkbox" @click="togglePassword()">
+                    </div>
+                    <Button @click="register()" Button="Sign Up"/>
                     <p class="paragraph5">Already have an account? Lets<router-link to="Login"> Login</router-link></p>
                 </div>
             </div>
@@ -27,56 +38,62 @@
 </template>
 
 <script>
-import Inputusername from '@/components/base/Inputusername.vue'
-import Inputemail from '@/components/base/Inputemail.vue'
-import Inputpassword from '@/components/base/Inputpassword.vue'
-
-import axios from 'axios'
+import Button from '@/components/base/Button.vue'
+import { mapMutations, mapActions } from 'vuex'
+import Swal from 'sweetalert2'
+import { required, minLength, email } from 'vuelidate/lib/validators'
 
 export default {
   name: 'Signup',
-  data: function () {
+  data () {
     return {
       username: '',
       email: '',
       password: ''
     }
   },
+  components: {
+    Button
+  },
+  validations: {
+    username: { required, minLength: minLength(0) },
+    email: { required, email },
+    password: { required, minLength: minLength(6) }
+  },
   methods: {
-    togglePassword () {
-      var x = document.getElementById('myInput')
-      if (x.type === 'password') {
-        x.type = 'text'
-      } else {
-        x.type = 'password'
-      }
+    ...mapMutations(['togglePassword']),
+    ...mapActions(['signUp']),
+    validationStatus (validation) {
+      return typeof validation !== 'undefined' ? validation.$error : false
     },
-    signUp () {
-      axios.post(`${process.env.VUE_APP_SERVICE_API}/users`, {
+    register () {
+      this.$v.$touch()
+      if (this.$v.$pending || this.$v.$error) return
+      const payload = {
         username: this.username,
         email: this.email,
         password: this.password
-      }).then(() => {
-        alert('Berhasil')
-        this.clear()
-      }).catch((err) => {
-        console.log(err)
-        alert('Gagal')
-      })
-    },
-    clear () {
-      this.username = ''
-      this.email = ''
-      this.password = ''
-    },
-    updateNilai (nilaiBaru) {
-      this.value = nilaiBaru
+      }
+      this.signUp(payload)
+        .then(() => {
+          this.$router.push('/auth/login')
+          Swal.fire({
+            icon: 'success',
+            title: 'Register succesfuly',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Email Already Exist',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        })
     }
-  },
-  components: {
-    Inputusername,
-    Inputemail,
-    Inputpassword
   }
 }
 </script>
@@ -186,16 +203,20 @@ body {
     position: relative;
 }
 
+.invalid-feedback {
+    position: absolute;
+}
+
 .img3 {
     position: absolute;
-    bottom: 240px;
-    right: 60px;
+    bottom: 15px;
+    right: 0px;
 }
 
 .checkbox {
     position: absolute;
-    bottom: 240px;
-    right: 60px;
+    bottom: 15px;
+    right: 0px;
 
     width: 24px;
     height: 24px;
@@ -215,6 +236,86 @@ body {
     text-align: center;
 
     color: #3a3d42cc;
+}
+
+.box-username, .box-email, .box-password {
+    width: 80%;
+}
+
+.input1{
+    margin-top: 40px;
+
+    outline: 0;
+    border-width: 0 0 2px;
+    width: 100%;
+    height: 50px;
+    border-color: rgba(169, 169, 169, 0.6);
+    background-image: url("../../assets/person.png");
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 40px;
+}
+
+.input1:valid {
+    border-color: #6379F4;
+    background-image: url("../../assets/person2.png");
+}
+
+.input1:invalid {
+    border-color: rgba(169, 169, 169, 0.6);
+    background-image: url("../../assets/person.png");
+}
+
+.input2 {
+    margin-top: 40px;
+
+    outline: 0;
+    border-width: 0 0 2px;
+    width: 100%;
+    height: 50px;
+    border-color: #a9a9a999;
+    background-image: url("../../assets/mail.png");
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 40px;
+}
+
+.input2:valid {
+    border-color: #6379F4;
+    background-image: url("../../assets/mail2.png");
+}
+
+.input2:invalid {
+    border-color: #a9a9a999;
+    background-image: url("../../assets/mail.png");
+}
+
+.box-password {
+    position: relative;
+}
+
+.input3 {
+    margin-top: 40px;
+
+    outline: 0;
+    border-width: 0 0 2px;
+    width: 100%;
+    height: 50px;
+    border-color: rgba(169, 169, 169, 0.6);
+    background-image: url("../../assets/lock.png");
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 40px;
+}
+
+.input3:valid {
+    border-color: #6379F4;
+    background-image: url("../../assets/lock2.png");
+}
+
+.input3:invalid {
+    border-color: #a9a9a999;
+    background-image: url("../../assets/lock.png");
 }
 
 .button {
@@ -248,16 +349,6 @@ body {
 
 /* Laptop */
 @media (max-width: 1024px) {
-    .img3 {
-        bottom: 210px;
-        right: 40px;
-    }
-
-    .checkbox {
-        bottom: 210px;
-        right: 40px;
-    }
-
     .paragraph5 {
         margin-top: 10px;
     }
@@ -265,34 +356,9 @@ body {
 
 /* Tablet */
 @media (max-width: 768px) {
-    .img3 {
-        right: 75px;
-    }
-
-    .checkbox {
-        right: 75px;
+    .paragraph3 {
+        margin: 30px 0 0 0;
     }
 }
 
-/* Mobile L*/
-@media (max-width: 425px) {
-    .img3 {
-        right: 40px;
-    }
-
-    .checkbox {
-        right: 40px;
-    }
-}
-
-/* Mobile S*/
-@media (max-width: 320px) {
-    .img3 {
-        right: 30px;
-    }
-
-    .checkbox {
-        right: 30px;
-    }
-}
 </style>

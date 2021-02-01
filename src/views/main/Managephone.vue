@@ -5,7 +5,7 @@
         <div class="container">
           <div class="row mt-4">
             <Navbar />
-            <Addphonenumber />
+            <Managephonenumber />
           </div>
         </div>
       </main>
@@ -16,15 +16,15 @@
 <script>
 import Header from '@/components/module/Header.vue'
 import Navbar from '@/components/module/Navbar.vue'
-import Addphonenumber from '@/components/module/Addphonenumber.vue'
+import Managephonenumber from '@/components/module/Managephonenumber.vue'
 import Footer from '@/components/module/Footer.vue'
 
 export default {
-  name: 'Home',
+  name: 'Managephone',
   components: {
     Header,
     Navbar,
-    Addphonenumber,
+    Managephonenumber,
     Footer
   }
 }

@@ -13,10 +13,10 @@
                 <div class="box">
                     <p class="paragraph3">Did You Forgot Your Password? Don’t Worry, You Can Reset Your Password In a Minutes.</p>
                     <p class="paragraph4">To reset your password, you must type your e-mail and we will send a link to your email and you will be directed to the reset password screens.</p>
-                    <Inputpassword Id="myInput" Class="input1" PlaceholderValue="Create new password"/>
+                    <input type="password" id="myInput" class="input1" placeholder="Create new password" password="password" v-model="password1" required/>
                     <img class="eye" src="../../assets/eye-crossed.png" alt="image3">
                     <input class="checkbox" type="checkbox" @click="togglePassword()">
-                    <Inputpassword Id="myInput1" Class="input2" PlaceholderValue="Create new password"/>
+                    <input type="password" id="myInput1" class="input2" placeholder="Create new password" password="password" v-model="password2" required/>
                     <img class="eye1" src="../../assets/eye-crossed.png" alt="image4">
                     <input class="checkbox1" type="checkbox" @click="togglePassword1()">
                     <Button Button="Reset Password"/>
@@ -27,33 +27,22 @@
 </template>
 
 <script>
-import Inputpassword from '@/components/base/Inputpassword.vue'
 import Button from '@/components/base/Button.vue'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'Createnewpassword',
-  methods: {
-    togglePassword () {
-      var x = document.getElementById('myInput')
-      if (x.type === 'password') {
-        x.type = 'text'
-      } else {
-        x.type = 'password'
-      }
-    },
-
-    togglePassword1 () {
-      var x = document.getElementById('myInput1')
-      if (x.type === 'password') {
-        x.type = 'text'
-      } else {
-        x.type = 'password'
-      }
+  data () {
+    return {
+      password1: '',
+      password2: ''
     }
   },
   components: {
-    Inputpassword,
     Button
+  },
+  methods: {
+    ...mapMutations(['togglePassword', 'togglePassword1'])
   }
 }
 </script>
@@ -292,6 +281,15 @@ body {
     .checkbox1 {
         bottom: 160px;
         right: 40px;
+    }
+}
+
+@media (max-width: 991px) {
+    .paragraph3 {
+        margin: 30px 0 0 0;
+    }
+    .button {
+        margin: 40px 0;
     }
 }
 

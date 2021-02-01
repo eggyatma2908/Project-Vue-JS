@@ -1,15 +1,18 @@
 <template>
     <div class="col-lg-3 mb-3">
-        <div class="box-sidebar1"><router-link class="sidebar1" to="/">Dashboard</router-link></div>
-        <div class="box-sidebar2"><router-link class="sidebar2" to="transfer">Transfer</router-link></div>
-        <div class="box-sidebar3"><router-link class="sidebar3" to="#">Top up</router-link></div>
-        <div class="box-sidebar4"><router-link class="sidebar4" to="#">Profile</router-link></div>
-        <div class="box-sidebar5"><router-link class="sidebar5" to="login">Logout</router-link></div>
+        <div class="box-sidebar1"><router-link class="sidebar1" :to="{path: '/'}">Dashboard</router-link></div>
+        <div class="box-sidebar2"><router-link class="sidebar2" :to="{path: '/main/transfer'}">Transfer</router-link></div>
+        <div class="box-sidebar3"><router-link class="sidebar3" :to="{path: '/main/topup'}">Top up</router-link></div>
+        <div class="box-sidebar4"><router-link class="sidebar4" :to="{path: '/main/profile'}">Profile</router-link></div>
+        <div class="box-sidebar5"><router-link class="sidebar5" :to="{path: '/auth/login'}" @click.native="handleLogout">Logout</router-link></div>
     </div>
 </template>
 
 <script>
+import Logout from '../../mixins/Logout'
+
 export default {
+  mixins: [Logout],
   name: 'Navbar'
 }
 </script>

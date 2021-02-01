@@ -13,20 +13,13 @@
                 <div class="box">
                     <p class="paragraph3">Start Accessing Banking Needs With All Devices and All Platforms With 30.000++ Users</p>
                     <p class="paragraph4">Transfering money is eassier than ever, you can access Zwallet wherever you are. Desktop, laptop, mobile phone? we cover all of that for you!</p>
-                    <div class="box-email">
-                        <input class="input1" placeholder="Enter your e-mail" type="email" v-model.trim="$v.email.$model" :class="{ 'is-invalid': validationStatus($v.email) }" required/>
-                        <div class="invalid-feedback" v-if="!$v.email.required">Field is required.</div>
-                        <div class="invalid-feedback" v-if="!$v.email.email">Invalid email</div>
-                    </div>
-                    <div class="box-password">
-                        <input type="password" id="myInput" class="input2" placeholder="Enter your password" password="password" v-model.trim="$v.password.$model" :class="{ 'is-invalid': validationStatus($v.password) }" required/>
-                        <div class="invalid-feedback" v-if="!$v.password.required">Field is required.</div>
-                        <div class="invalid-feedback" v-if="!$v.password.minLength">Field must have at least {{ $v.password.$params.minLength.min }} characters.</div>
-                        <img class="img3" src="../../assets/eye-crossed.png" alt="image3">
-                        <input class="checkbox" type="checkbox" @click="togglePassword()">
-                        <p class="forgotPassword"><router-link to="Resetpassword">Forgot Password?</router-link></p>
-                    </div>
-                    <Button @click="loginUser()" Button="Login"/>
+                    <input class="input1" placeholder="Enter your e-mail" type="email" v-model="email" required/>
+                    <input type="password" id="myInput" class="input2" placeholder="Enter your password" password="password" v-model="password" required/>
+                    <img class="img3" src="../../assets/eye-crossed.png" alt="image3">
+                    <input class="checkbox" type="checkbox" @click="togglePassword()">
+                    <p class="forgotPassword"><router-link to="Resetpassword">Forgot Password?</router-link></p>
+                    <p class="invalid">Email or Password Invalid</p>
+                    <Button @click.native="login()" Button="Login"/>
                     <p class="paragraph5">Don't have an account? Let's <router-link to="Signup">Sign Up</router-link></p>
                 </div>
             </div>
@@ -37,70 +30,23 @@
 <script>
 import Button from '@/components/base/Button.vue'
 import { mapMutations, mapActions } from 'vuex'
-import Swal from 'sweetalert2'
-import { required, minLength, email } from 'vuelidate/lib/validators'
 
 export default {
-  name: 'Login',
-  data () {
-    return {
-      email: '',
-      password: ''
-    }
-  },
+  name: 'Loginerror',
   components: {
     Button
-  },
-  validations: {
-    email: { required, email },
-    password: { required, minLength: minLength(6) }
   },
   methods: {
     ...mapMutations(['togglePassword']),
     ...mapActions(['login']),
-    validationStatus (validation) {
-      return typeof validation !== 'undefined' ? validation.$error : false
-    },
-    loginUser () {
-      this.$v.$touch()
-      if (this.$v.$pending || this.$v.$error) return
+    login () {
       const payload = {
         email: this.email,
         password: this.password
       }
       this.login(payload)
         .then(() => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Login Success',
-            showConfirmButton: false,
-            timer: 1500
-          })
-          this.$router.push('/main/home')
-        })
-        .catch((err) => {
-          if (err.response.data.err.error === 'Email has not been registered') {
-            Swal.fire({
-              icon: 'error',
-              title: 'Email has not been registered',
-              showConfirmButton: false,
-              timer: 1500
-            })
-          } else if (err.response.data.err.error === 'Email has not been verified') {
-            Swal.fire({
-              icon: 'error',
-              title: 'Email has not been verified',
-              showConfirmButton: false,
-              timer: 1500
-            })
-          } else if (err.response.data.err.error === 'Password Wrong') {
-            Swal.fire({
-              icon: 'error',
-              title: 'Password Wrong',
-              showConfirmButton: false,
-              timer: 1500
-            })
-          }
+          this.$router.go('/')
         })
     }
   }
@@ -108,8 +54,6 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&display=swap");
-
 body {
     margin: 0px;
     padding: 0px;
@@ -120,6 +64,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    position: relative;
 }
 
 .img1 {
@@ -204,16 +150,12 @@ body {
     color: #3a3d4299;
 }
 
-.box-username, .box-email, .box-password {
-    width: 80%;
-}
-
 .input1{
     margin-top: 40px;
 
     outline: 0;
     border-width: 0 0 2px;
-    width: 100%;
+    width: 80%;
     height: 50px;
     border-color: rgba(169, 169, 169, 0.6);
     background-image: url("../../assets/person.png");
@@ -232,16 +174,12 @@ body {
     background-image: url("../../assets/person.png");
 }
 
-.box-password {
-    position: relative;
-}
-
 .input2 {
     margin-top: 40px;
 
     outline: 0;
     border-width: 0 0 2px;
-    width: 100%;
+    width: 80%;
     height: 50px;
     border-color: rgba(169, 169, 169, 0.6);
     background-image: url("../../assets/lock.png");
@@ -267,20 +205,16 @@ body {
     position: relative;
 }
 
-.invalid-feedback {
-    position: absolute;
-}
-
 .img3 {
     position: absolute;
-    bottom: 15px;
-    right: 0px;
+    bottom: 300px;
+    right: 60px;
 }
 
 .checkbox {
     position: absolute;
-    bottom: 15px;
-    right: 0px;
+    bottom: 300px;
+    right: 60px;
 
     width: 24px;
     height: 24px;
@@ -294,7 +228,8 @@ body {
 
 .forgotPassword {
     position: absolute;
-    right: 0px;
+    bottom: 225px;
+    right: 60px;
 
     margin-top: 20px;
 
@@ -305,6 +240,50 @@ body {
     line-height: 24px;
 
     text-align: right;
+}
+
+.invalid {
+    position: absolute;
+    bottom: 155px;
+
+    margin-top: 20px;
+
+    font-family: Nunito Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 32px;
+
+    color: #FF5B37;
+}
+
+.button {
+    margin-top: 150px;
+
+    width: 80%;
+    height: 57px;
+
+    font-family: Nunito Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 25px;
+
+    text-align: center;
+
+    border: none;
+    border-radius: 12px;
+
+    color: #FFFFFF;
+    background: #DADADA;
+}
+
+.button:hover {
+    background: #6379F4;
+}
+
+.button:focus {
+    outline: none;
 }
 
 .paragraph5 {
@@ -323,6 +302,24 @@ body {
 
 /* Laptop */
 @media (max-width: 1024px) {
+    .img3 {
+        bottom: 220px;
+        right: 40px;
+    }
+    .checkbox {
+        bottom: 220px;
+        right: 40px;
+    }
+    .forgotPassword {
+        bottom: 155px;
+        right: 40px;
+    }
+    .invalid {
+        bottom: 105px;
+    }
+    .button {
+        margin-top: 100px;
+    }
     .paragraph5 {
         margin-top: 10px;
     }
@@ -330,9 +327,46 @@ body {
 
 /* Tablet */
 @media (max-width: 768px) {
+    .img3 {
+        right: 75px;
+    }
+    .checkbox {
+        right: 75px;
+    }
+    .forgotPassword {
+        bottom: 140px;
+        right: 75px;
+    }
     .paragraph3 {
         margin: 30px 0 0 0;
     }
 }
 
+/* Mobile L*/
+@media (max-width: 425px) {
+    .img3 {
+        right: 40px;
+    }
+    .checkbox {
+        right: 40px;
+    }
+    .forgotPassword {
+        bottom: 140px;
+        right: 40px;
+    }
+}
+
+/* Mobile S*/
+@media (max-width: 320px) {
+    .img3 {
+        right: 30px;
+    }
+    .checkbox {
+        right: 30px;
+    }
+    .forgotPassword {
+        bottom: 140px;
+        right: 40px;
+    }
+}
 </style>

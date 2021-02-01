@@ -1,16 +1,19 @@
 <template>
     <div class="col-lg-9">
         <div class="encapsule">
-            <div class="box pt-3 pb-2 ml-4 mr-4">
+            <div class="box pt-1 pb-1 ml-4 mr-4">
                 <div class="box mt-4 mr-4">
                     <div class="title">Transfer Money</div>
                 </div>
                 <div class="box-user mt-5">
                     <div class="flex-box1">
-                        <img class="user1" src="../../assets/1.png" alt="image3">
-                        <div class="box-profile1 mt-2">
-                            <p class="name1 mb-2">Samuel Sushi</p>
-                            <p class="phone1">+62 813-8492-9994</p>
+                        <div class="boxphoto">
+                            <img class="user1" :src="receiver.photoProfile" alt="image3" v-if="receiver.photoProfile">
+                            <img class="user1" src="../../assets/emptyprofile.jpg" alt="image4" v-else>
+                        </div>
+                        <div class="box-profile1 ml-5 mt-3">
+                            <p class="name1 mb-2">{{ firstName(username) }}</p>
+                            <p class="phone1">{{receiver.phoneNumber === null ? null : '+62'}}{{ receiver.phoneNumber }}</p>
                         </div>
                     </div>
                 </div>
@@ -19,14 +22,14 @@
                     <p class="text1">press continue to the next steps.</p>
                 </div>
                 <div class="box2 d-flex justify-content-center">
-                    <input class="null" type="text" placeholder="0.00" v-model="amount" required>
+                    <input class="null" type="number" placeholder="0.00" v-model="amount" required>
                 </div>
-                <p class="saldo mt-4">Rp120.000 Available</p>
+                <p class="saldo mt-4">Rp{{balance(getDataUserById[0].balance)}} Available</p>
                 <div class="box3 d-flex justify-content-center">
                     <input class="notes mt-4" placeholder="Add some notes" type="text" v-model="notes" required/>
                 </div>
                 <div class="box4 d-flex justify-content-end mt-4 mb-4">
-                    <button class="button" type="submit" @click.prevent="insertData()">Continue</button>
+                    <button class="button" type="submit" @click.prevent="checkBalance()">Continue</button>
                 </div>
             </div>
         </div>
@@ -34,33 +37,76 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { mapGetters } from 'vuex'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'Inputtransfer',
   data: function () {
     return {
-      amount: '',
+      receiver: '',
+      username: '',
+      amount: 0 || null,
       notes: ''
     }
   },
   methods: {
-    insertData () {
-      axios.post(`${process.env.VUE_APP_SERVICE_API}/transaction`, {
-        amount: this.amount,
-        notes: this.notes
-      }).then(() => {
-        alert('Berhasil')
-      }).catch((err) => {
-        console.log(err)
-        alert('Gagal')
-      })
+    firstName (param) {
+      const first = param.split(' ')[0].toLowerCase()
+      this.capitalize = first.charAt(0).toUpperCase() + first.slice(1)
+      return this.capitalize
+    },
+    balance (param) {
+      const numberString = param.toString()
+      const leftover = numberString.length % 3
+      this.rupiah = numberString.substr(0, leftover)
+      const thousands = numberString.substr(leftover).match(/\d{3}/g)
+
+      if (thousands) {
+        const separator = leftover ? '.' : ''
+        this.rupiah += separator + thousands.join('.')
+      }
+      return this.rupiah
+    },
+    filterTransaction () {
+      const item = this.getUsers.filter(e => e.id === this.$route.params.id)
+      this.receiver = item[0]
+      this.username = item[0].username
+    },
+    checkBalance () {
+      const minTransfer = 15000
+      if (this.getDataUserById[0].balance < this.amount || minTransfer >= this.amount) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops... Balance is not enough',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      } else {
+        this.$router.push({ name: 'Confirmation', query: { id: this.$route.params.id, amount: this.amount, notes: this.notes } })
+      }
     }
+  },
+  computed: {
+    ...mapGetters(['getUsers', 'getDataUserById'])
+  },
+  mounted () {
+    this.filterTransaction()
   }
 }
 </script>
 
 <style scoped>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .encapsule {
     background: #FFFFFF;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
@@ -88,11 +134,21 @@ export default {
     flex-direction: row;
 }
 
+.boxphoto {
+    width: 70px;
+    background-position: 100px;
+}
+
+.boxphoto img {
+    width: 100%;
+    border-radius: 12px;
+}
+
 .user1 {
     width: 70px;
     height: 70px;
 
-    margin: 0px 20px 0px 20px;
+    margin: 10px 20px;
 }
 
 .name1 {
@@ -105,8 +161,6 @@ export default {
     font-weight: bold;
     font-size: 18px;
     line-height: 25px;
-
-    text-align: center;
 
     color: #3A3D42;
 }

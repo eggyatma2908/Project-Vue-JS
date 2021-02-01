@@ -1,47 +1,79 @@
 <template>
     <div class="col-lg-9">
         <div class="encapsule">
-            <div class="box-add-phone-number pt-5 ml-4">
+            <div class="box-add-phone-number pt-5 ml-4 mr-4">
                 <p class="title">Add Phone Number</p>
                 <p class="describe mb-5">Add at least one phone number for the transfer ID so you can start transfering your money to another user.</p>
             </div>
             <div class="d-flex justify-content-center pt-5 pb-5">
                 <label for="phone">+62</label>
-                <input type="tel" id="phone" class="input1 mr-4" name="phone" placeholder="Enter your phone number" required>
+                <input type="number" id="phone" class="input1 mr-4" name="phone" placeholder="Enter your phone number" v-model="phoneNumber" required>
             </div>
-            <div class="d-flex justify-content-center mt-5">
-                <button class="button" type="submit">Add Phone Number</button>
+            <div class="d-flex justify-content-center">
+                <Button @click="addPhoneNumber()" Button="Add Phone Number"/>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
+import Button from '@/components/base/Button.vue'
+import { mapActions } from 'vuex'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'Addphonenumber',
-  data: function () {
+  data () {
     return {
-      phoneNumber: ''
+      phoneNumber: 0 || null
     }
   },
+  components: {
+    Button
+  },
   methods: {
-    insertData () {
-      axios.patch(`${process.env.VUE_APP_SERVICE_API}/users`, {
-        phoneNumber: ''
-      }).then(() => {
-        alert('Berhasil')
-      }).catch((err) => {
-        console.log(err)
-        alert('Gagal')
-      })
+    ...mapActions(['editPhone']),
+    addPhoneNumber () {
+      const userId = localStorage.getItem('id')
+      const payload = {
+        userId,
+        phoneNumber: this.phoneNumber
+      }
+      this.editPhone(payload)
+        .then((res) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Phone number updated successfully',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.$router.push('/')
+        })
+        .catch(() => {
+          Swal.fire({
+            icon: 'error',
+            title: 'phone number was not changed successfully',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.$router.push('/')
+        })
     }
   }
 }
 </script>
 
 <style scoped>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .encapsule {
     background: #FFFFFF;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
@@ -59,7 +91,7 @@ export default {
 }
 
 .describe {
-    width: 342px;
+    width: 52%;
     height: max-content;
 
     font-family: Nunito Sans;
@@ -128,7 +160,7 @@ label {
     width: 50%;
     height: 57px;
 
-    margin-bottom: 173px;
+    margin-bottom: 160px;
 
     font-family: Nunito Sans;
     font-style: normal;
@@ -154,13 +186,16 @@ label {
     background: #6379F4;
 }
 
+@media (max-width: 991px) {
+    .describe {
+        width: 100%;
+    }
+}
+
 /* Mobile M */
 @media (max-width: 375px) {
     .button {
         width: 70%;
-    }
-    .describe {
-        width: 250px
     }
 }
 

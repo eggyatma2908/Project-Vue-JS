@@ -2,11 +2,18 @@
     <div class="container-fluid">
         <div class="header">
             <p class="logo">Zwallet</p>
-            <div class="d-flex justify-content-between flex-box">
-                <img class="profile" src="../../assets/profile.png" alt="image1">
+            <div class="d-flex justify-content-between flex-box image-upload">
+                <div class="boxphoto">
+                  <label for="photoprofile">
+                    <img id="update-photo" :src="userProfile" alt="image1" v-if="userProfile">
+                    <img class="profile" :src="getDataUserById[0].photoProfile" alt="image1" v-else-if="getDataUserById[0].photoProfile">
+                    <img class="profile" src="../../assets/emptyprofile.jpg" alt="image1" v-else>
+                  </label>
+                </div>
+                <input id="photoprofile" type="file" accept="image/x-png/,image/gif,image/jpeg" class="uploadphoto" v-on:change="updatePhoto"/>
                 <div class="box-profile">
-                    <p class="name">Richard Chandler</p>
-                    <p class="phone">+62 8139 3877 7946</p>
+                    <p class="name">{{getDataUserById[0] ? capitalizeStr(getDataUserById[0].username) : ''}}</p>
+                    <router-link :to="{ path: `/main/managephone`}"><p class="phone">{{getDataUserById[0].phoneNumber ? '+62' + getDataUserById[0].phoneNumber : '+62'}}</p></router-link>
                 </div>
                 <img class="bell" src="../../assets/bell.png" alt="image2">
             </div>
@@ -15,8 +22,62 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+import Swal from 'sweetalert2'
+
 export default {
-  name: 'Header'
+  name: 'Header',
+  data () {
+    return {
+      photoProfile: [],
+      previewImage: ''
+    }
+  },
+  methods: {
+    ...mapActions(['getAllUser', 'updateUserProfile', 'getUserById']),
+    capitalizeStr (param) {
+      const lowerStr = param.toLowerCase()
+      this.last = lowerStr.split(' ').slice(0).map(item => item.slice()[0].charAt(0).toUpperCase() + item.slice(1))
+      return this.last.join(' ')
+    },
+    updatePhoto () {
+      const imagename = (event.target.files[0].name)
+      this.photoProfile = imagename
+      this.previewImg = URL.createObjectURL(event.target.files[0])
+      const form = new FormData()
+      const image = document.getElementById('photoprofile').files[0]
+      form.append('photoProfile', image)
+      const userId = localStorage.getItem('id')
+      const payload = {
+        userId,
+        formData: form
+      }
+      this.updateUserProfile(payload)
+        .then((res) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Photo profile has been update',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        })
+        .catch(() => {
+          Swal.fire({
+            icon: 'error',
+            title: 'File to large or File accepted only JPG, JPEG, GIF & PNG',
+            showConfirmButton: false,
+            timer: 2000
+          })
+        })
+    }
+  },
+  computed: {
+    ...mapGetters(['userProfile', 'getDataUserById'])
+  },
+  mounted () {
+    this.getUserById()
+    this.getAllUser()
+  }
 }
 </script>
 
@@ -51,6 +112,22 @@ body {
     line-height: 40px;
 
     color: #6379F4;
+}
+
+.boxphoto {
+    width: 52px;
+    background-position: 100px;
+}
+
+.boxphoto img {
+    width: 100%;
+    height: 52px;
+
+    border-radius: 50px;
+}
+
+.image-upload > input {
+  display: none;
 }
 
 .box-profile {
