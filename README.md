@@ -1,7 +1,7 @@
 # Zwallet - Frontend
 
 # Screenshot
-<div display="flex">
+<div display="flex" padding="10px">
 <img src="https://user-images.githubusercontent.com/26200397/106650539-9ce2bd00-65c5-11eb-9fdb-254fc24e1b59.png" width="300">
 <img src="https://user-images.githubusercontent.com/26200397/106650535-9b18f980-65c5-11eb-91b8-17381ed53463.png" width="300">
 <img src="https://user-images.githubusercontent.com/26200397/106650537-9c4a2680-65c5-11eb-9852-85aeefdc066a.png" width="300">
