@@ -1,4 +1,4 @@
-# Zwallet - Frontend
+<p text-align="center> # Zwallet - Frontend </p>
 
 <img src="https://user-images.githubusercontent.com/26200397/106650539-9ce2bd00-65c5-11eb-9fdb-254fc24e1b59.png" width="300">
 
