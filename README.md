@@ -1,4 +1,4 @@
-# project
+# Zwallet - Frontend
 
 ## Project setup
 ```
