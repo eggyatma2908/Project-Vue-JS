@@ -84,8 +84,7 @@ export default {
             timer: 1500
           })
         })
-        .catch((err) => {
-          console.log(err)
+        .catch(() => {
           Swal.fire({
             icon: 'error',
             title: 'Email Already Exist',

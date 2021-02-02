@@ -70,7 +70,6 @@
 <script>
 import { mapGetters } from 'vuex'
 import moment from 'moment'
-// import { jsPDF } from 'jspdf'
 
 export default {
   name: 'Success',
@@ -82,17 +81,6 @@ export default {
     }
   },
   methods: {
-    // downloadPDF () {
-    //   // eslint-disable-next-line new-cap
-    //   const doc = new jsPDF()
-    //   doc.html(document.getElementById('transfer'), {
-    //     callback: function (doc) {
-    //       doc.save('transfer.pdf')
-    //     },
-    //     x: 0,
-    //     y: 0
-    //   })
-    // },
     firstName (param) {
       const first = param.split(' ')[0].toLowerCase()
       this.capitalize = first.charAt(0).toUpperCase() + first.slice(1)
