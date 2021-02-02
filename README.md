@@ -11,7 +11,7 @@ https://github.com/eggyatma2908/Zwallet-Front-End.git
 npm install
 
 3. Add .env file at root folder project, and add following
-VUE_APP_SERVICE_API= http://localhost:4000
+VUE_APP_SERVICE_API= [Backend API]
 ```
 
 # Run the project 
