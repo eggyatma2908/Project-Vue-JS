@@ -1,6 +1,6 @@
 # Zwallet - Frontend
 
-<p width: 100px>Zwallet</p>
+<p font-size: 20px>Zwallet</p>
 
 ## Project setup
 ```
