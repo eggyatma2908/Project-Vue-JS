@@ -1,6 +1,6 @@
 # Zwallet - Frontend
 
-<p style="margin-top: 10px; font-family: Nunito Sans; font-style: normal">Zwallet</p>
+<p width: 100px>Zwallet</p>
 
 ## Project setup
 ```
