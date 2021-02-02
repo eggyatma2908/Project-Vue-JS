@@ -78,36 +78,13 @@ export default {
           })
           this.$router.push('/main/home')
         })
-        .catch((err) => {
-          if (err.response.data.err.error === 'Email has not been registered') {
-            Swal.fire({
-              icon: 'error',
-              title: 'Email has not been registered',
-              showConfirmButton: false,
-              timer: 1500
-            })
-          } else if (err.response.data.err.error === 'Email has not been verified') {
-            Swal.fire({
-              icon: 'error',
-              title: 'Email has not been verified',
-              showConfirmButton: false,
-              timer: 1500
-            })
-          } else if (err.response.data.err.error === 'Password Wrong') {
-            Swal.fire({
-              icon: 'error',
-              title: 'Password Wrong',
-              showConfirmButton: false,
-              timer: 1500
-            })
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: 'Login Failed',
-              showConfirmButton: false,
-              timer: 1500
-            })
-          }
+        .catch(() => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Login Failed',
+            showConfirmButton: false,
+            timer: 1500
+          })
         })
     }
   }
