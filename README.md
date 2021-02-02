@@ -42,8 +42,7 @@ Contributions are what make the open source community such an amazing place to b
 https://github.com/eggyatma2908/Zwallet-Back-End
 
 # Contact
-Email : eggyatmariansyah@gmail.com,
-LinkedIn : https://www.linkedin.com/in/eggyatmariansyah/
+Email : eggyatmariansyah@gmail.com, LinkedIn : https://www.linkedin.com/in/eggyatmariansyah/
 
 
  
