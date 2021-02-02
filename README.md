@@ -1,6 +1,6 @@
 # Zwallet - Frontend
 
-This is a frontend zwallet project created using vue JS and Bootstrap, where it has several pages such as user profile, dashboard, search transfer, transfer, transaction history, topup guide, adding phone numbers and managing phone numbers
+This is a frontend zwallet project created using Vue JS and Bootstrap, where it has several pages such as user profile, dashboard, search transfer, transfer, transaction history, topup guide, adding phone numbers and managing phone numbers
 
 # Installation
 ```
