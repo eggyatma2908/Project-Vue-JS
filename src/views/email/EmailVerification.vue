@@ -45,7 +45,8 @@ export default {
           email: `${this.$route.params.email}`
         }
       })
-        .then(() => {
+        .then((res) => {
+          console.log(res)
         })
         .catch(() => {
           alert('Forbidden: Your email has not been registered ')
