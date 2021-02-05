@@ -4,7 +4,7 @@
             <div class="box pt-3 ml-4 mr-4">
                 <p class="title">How To Top Up</p>
             </div>
-            <div class="box1 mt-5 mr-5">
+            <div class="box1 mt-5">
                 <ol>
                     <li class="one"><h1>1</h1><p>Go to the nearest ATM or you can use E-Banking.</p> </li>
                     <li class="two"><h1>2</h1><p>Type your security number on the ATM or E-Banking.</p></li>
@@ -43,6 +43,11 @@ export default {
     color: #3A3D42;
 }
 
+ol {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 ol li {
     margin: 10px 0;
     height: 55px;
@@ -53,7 +58,17 @@ ol li {
 }
 
 li p {
-    margin: 0px 0px 0px 20px
+    margin: 0px 0px 0px 20px;
+    font-family: Nunito Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 100%;
+    line-height: 27px;
+
+    display: flex;
+    align-items: center;
+
+    color: #7A7886;
 }
 
 h1 {
@@ -68,107 +83,9 @@ h1 {
     color: #6379F4;
 }
 
-.one {
-    font-family: Nunito Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 27px;
-
-    display: flex;
-    align-items: center;
-
-    color: #7A7886;
-}
-
-.two {
-    font-family: Nunito Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 27px;
-
-    display: flex;
-    align-items: center;
-
-    color: #7A7886;
-}
-
-.three {
-    font-family: Nunito Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 27px;
-
-    display: flex;
-    align-items: center;
-
-    color: #7A7886;
-}
-
-.four {
-    font-family: Nunito Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 27px;
-
-    display: flex;
-    align-items: center;
-
-    color: #7A7886;
-}
-
-.five {
-    font-family: Nunito Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 27px;
-
-    display: flex;
-    align-items: center;
-
-    color: #7A7886;
-}
-
-.six {
-    font-family: Nunito Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 27px;
-
-    display: flex;
-    align-items: center;
-
-    color: #7A7886;
-}
-
-.seven {
-    font-family: Nunito Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 27px;
-
-    display: flex;
-    align-items: center;
-
-    color: #7A7886;
-}
-
-.eight {
-    font-family: Nunito Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 27px;
-
-    display: flex;
-    align-items: center;
-
-    color: #7A7886;
+@media (max-width: 320px) {
+    li p {
+        font-size: 80%;
+    }
 }
 </style>

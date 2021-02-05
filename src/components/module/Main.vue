@@ -471,7 +471,7 @@ export default {
 }
 
 .col-md-5 {
-    padding-right: 0px
+    padding: 0px
 }
 
 .encapsule {
