@@ -25,7 +25,7 @@ export default {
       return axios.patch(`${process.env.VUE_APP_SERVICE_API}/emailVerification/emailverification`, {
         email: `${this.$route.params.email}`
       })
-        .then(res => {
+        .then(() => {
           Swal.fire({
             icon: 'success',
             title: 'Email has been verified',
@@ -45,9 +45,7 @@ export default {
           email: `${this.$route.params.email}`
         }
       })
-        .then((res) => {
-          console.log(res)
-        })
+        .then(() => {})
         .catch(() => {
           alert('Forbidden: Your email has not been registered ')
           this.$router.push('/auth/login')
