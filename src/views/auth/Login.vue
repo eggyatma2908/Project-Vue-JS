@@ -79,7 +79,8 @@ export default {
           })
           this.$router.push('/main/home')
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log(err)
           Swal.fire({
             icon: 'error',
             title: 'Login Failed',
