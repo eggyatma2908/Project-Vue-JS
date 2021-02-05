@@ -125,9 +125,11 @@ export default {
       this.updateBalanceReceiver(payload.balanceLeftReceiver)
       this.transferUsers(payload.transaction)
         .then((res) => {
+          console.log(res)
           this.$router.push({ path: '/main/success', query: { id: this.$route.query.id, balanceLeft: this.balanceLeft(), amount: this.$route.query.amount, notes: this.$route.query.notes } })
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log(err)
           this.$router.push({ path: '/main/failed', query: { id: this.$route.query.id, balanceLeft: this.balanceLeft(), amount: this.$route.query.amount, notes: this.$route.query.notes } })
         })
     }
