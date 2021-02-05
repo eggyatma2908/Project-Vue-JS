@@ -73,6 +73,7 @@
                             <div class="d-flex justify-content-between flex-box1" v-if="getDataUserById[0].username === transaction.senderName">
                             <div class="boxphoto">
                                 <img class="user1" :src="userProfile" alt="image3" v-if="userProfile">
+                                <img class="user1" :src="getDataUserById[0].photoProfile" alt="image3" v-else-if="getDataUserById[0].photoProfile">
                                 <img class="profile" src="../../assets/emptyprofile.jpg" alt="image1" v-else>
                             </div>
                             <div class="box-profile1">

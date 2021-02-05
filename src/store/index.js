@@ -12,12 +12,12 @@ export default new Vuex.Store({
     userId: null || localStorage.getItem('id'),
     accessToken: null || localStorage.getItem('accessToken'),
     refreshToken: null || localStorage.getItem('refreshToken'),
-    photoProfile: null || '',
+    photoProfile: '',
     loginUser: '',
     registeredUser: {},
-    balance: null || [],
-    users: null || [],
-    userById: null || [],
+    balance: [],
+    users: [],
+    userById: [],
     transaction: [],
     transfer: []
   },
@@ -79,6 +79,7 @@ export default new Vuex.Store({
             localStorage.setItem('accessToken', result.accessToken)
             localStorage.setItem('refreshToken', result.refreshToken)
             localStorage.setItem('id', result.id)
+            context.commit('userProfile', '')
             context.commit('userLogin', result)
             resolve(result)
           })

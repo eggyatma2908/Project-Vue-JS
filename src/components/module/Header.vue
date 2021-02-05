@@ -6,6 +6,7 @@
                 <div class="boxphoto">
                   <label for="photoprofile">
                     <img id="update-photo" :src="userProfile" alt="image1" v-if="userProfile">
+                    <img id="update-photo" :src="getDataUserById[0].photoProfile" alt="image1" v-else-if="getDataUserById[0].photoProfile">
                     <img class="profile" src="../../assets/emptyprofile.jpg" alt="image1" v-else>
                   </label>
                 </div>
