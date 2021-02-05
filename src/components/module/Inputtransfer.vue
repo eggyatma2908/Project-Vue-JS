@@ -22,11 +22,11 @@
                     <p class="text1">press continue to the next steps.</p>
                 </div>
                 <div class="box2 d-flex justify-content-center">
-                    <input class="null" type="number" placeholder="0.00" v-model="amount" required>
+                    <input class="null" type="number" placeholder="0.00" v-model="amount" @keyup.enter="checkBalance()" required>
                 </div>
                 <p class="saldo mt-4">Rp{{balance(getDataUserById[0].balance)}} Available</p>
                 <div class="box3 d-flex justify-content-center">
-                    <input class="notes mt-4" placeholder="Add some notes" type="text" v-model="notes" required/>
+                    <input class="notes mt-4" placeholder="Add some notes" type="text" v-model="notes" @keyup.enter="checkBalance()" required/>
                 </div>
                 <div class="box4 d-flex justify-content-end mt-4 mb-4">
                     <button class="button" type="submit" @click.prevent="checkBalance()">Continue</button>
@@ -75,7 +75,14 @@ export default {
     },
     checkBalance () {
       const minTransfer = 15000
-      if (this.getDataUserById[0].balance < this.amount || minTransfer >= this.amount) {
+      if (minTransfer > this.amount) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops... Minimal transfer Rp.15000',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      } else if (this.getDataUserById[0].balance < this.amount) {
         Swal.fire({
           icon: 'error',
           title: 'Ooops... Balance is not enough',

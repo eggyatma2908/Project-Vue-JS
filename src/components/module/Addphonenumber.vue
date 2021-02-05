@@ -7,7 +7,7 @@
             </div>
             <div class="d-flex justify-content-center pt-5 pb-5">
                 <label for="phone">+62</label>
-                <input type="number" id="phone" class="input1 mr-4" name="phone" placeholder="Enter your phone number" v-model="phoneNumber" required>
+                <input type="number" id="phone" class="input1 mr-4" name="phone" placeholder="Enter your phone number" v-model="phoneNumber" @keyup.enter="addPhoneNumber()" required>
             </div>
             <div class="d-flex justify-content-center">
                 <Button @click="addPhoneNumber()" Button="Add Phone Number"/>
