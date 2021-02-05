@@ -100,6 +100,13 @@ export default {
               showConfirmButton: false,
               timer: 1500
             })
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Login Failed',
+              showConfirmButton: false,
+              timer: 1500
+            })
           }
         })
     }
