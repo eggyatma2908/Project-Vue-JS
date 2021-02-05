@@ -1,1 +1,1 @@
-/emailverification/:email /emailverification/:email
+/auth/login /auth/login
