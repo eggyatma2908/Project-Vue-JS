@@ -26,7 +26,7 @@
                         <input class="checkbox" type="checkbox" @click="togglePassword()">
                         <p class="forgotPassword"><router-link to="Resetpassword">Forgot Password?</router-link></p>
                     </div>
-                    <Button @click="loginUser()" Button="Login"/>
+                    <Button @click:keyup.enter="loginUser()" Button="Login"/>
                     <p class="paragraph5">Don't have an account? Let's <router-link to="Signup">Sign Up</router-link></p>
                 </div>
             </div>
