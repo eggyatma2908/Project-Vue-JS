@@ -130,11 +130,12 @@ const routes = [
         component: Login,
         meta: { requiresVisitor: true }
       },
+      // (unused)
       {
         path: 'loginerror',
         name: 'Loginerror',
         component: Loginerror,
-        meta: { requiresVisitor: true }
+        redirect: '/'
       },
       {
         path: 'signup',
@@ -142,25 +143,33 @@ const routes = [
         component: Signup,
         meta: { requiresVisitor: true }
       },
+      // (unused)
       {
         path: 'resetpassword',
         name: 'Resetpassword',
-        component: Resetpassword
+        component: Resetpassword,
+        redirect: '/'
       },
+      // (unused)
       {
         path: 'createpin',
         name: 'Createpin',
-        component: Createpin
+        component: Createpin,
+        redirect: '/'
       },
+      // (unused)
       {
         path: 'pinsuccess',
         name: 'Pinsuccess',
-        component: Pinsuccess
+        component: Pinsuccess,
+        redirect: '/'
       },
+      // (unused)
       {
         path: 'createnewpassword',
         name: 'Createnewpassword',
-        component: Createnewpassword
+        component: Createnewpassword,
+        redirect: '/'
       }
     ]
   }
