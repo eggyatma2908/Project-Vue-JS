@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <div class="header">
-            <p class="logo">{{getDataUserById[0].photoProfile}}</p>
+            <p class="logo">Zwallet</p>
             <div class="d-flex justify-content-between flex-box image-upload">
                 <div class="boxphoto">
                   <label for="photoprofile">
