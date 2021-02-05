@@ -19,14 +19,14 @@
                         <div class="invalid-feedback" v-if="!$v.email.email">Invalid email</div>
                     </div>
                     <div class="box-password">
-                        <input type="password" id="myInput" class="input2" placeholder="Enter your password" password="password" v-model.trim="$v.password.$model" :class="{ 'is-invalid': validationStatus($v.password) }" @click:keyup.enter="loginUser()" required/>
+                        <input type="password" id="myInput" class="input2" placeholder="Enter your password" password="password" v-model.trim="$v.password.$model" :class="{ 'is-invalid': validationStatus($v.password) }" @keyup.enter="trigger" required/>
                         <div class="invalid-feedback" v-if="!$v.password.required">Field is required.</div>
                         <div class="invalid-feedback" v-if="!$v.password.minLength">Field must have at least {{ $v.password.$params.minLength.min }} characters.</div>
                         <img class="img3" src="../../assets/eye-crossed.png" alt="image3">
                         <input class="checkbox" type="checkbox" @click="togglePassword()">
                         <p class="forgotPassword"><router-link to="Resetpassword">Forgot Password?</router-link></p>
                     </div>
-                    <Button @click:keyup.enter="loginUser()" Button="Login"/>
+                    <Button @click="loginUser()" ref="loginClick" Button="Login"/>
                     <p class="paragraph5">Don't have an account? Let's <router-link to="Signup">Sign Up</router-link></p>
                 </div>
             </div>
@@ -60,6 +60,9 @@ export default {
     ...mapActions(['login']),
     validationStatus (validation) {
       return typeof validation !== 'undefined' ? validation.$error : false
+    },
+    trigger () {
+      this.$refs.loginClick.click()
     },
     loginUser () {
       this.$v.$touch()
