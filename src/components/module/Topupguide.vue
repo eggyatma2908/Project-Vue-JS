@@ -58,17 +58,7 @@ ol li {
 }
 
 li p {
-    margin: 0px 0px 0px 20px;
-    font-family: Nunito Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 100%;
-    line-height: 27px;
-
-    display: flex;
-    align-items: center;
-
-    color: #7A7886;
+    margin: 0px 0px 0px 20px
 }
 
 h1 {
@@ -83,9 +73,22 @@ h1 {
     color: #6379F4;
 }
 
-@media (max-width: 320px) {
-    li p {
+.one, .two, .three, .four, .five, .six, .seven, .eight {
+    font-family: Nunito Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 100%;
+
+    display: flex;
+    align-items: center;
+
+    color: #7A7886;
+}
+
+@media (max-width: 375px) {
+    .one, .two, .three, .four, .five, .six, .seven, .eight {
         font-size: 80%;
     }
 }
+
 </style>

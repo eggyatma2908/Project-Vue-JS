@@ -389,4 +389,10 @@ export default {
 .button:focus {
     outline: none;
 }
+
+@media (max-width: 375px) {
+    .button {
+        width: 40%;
+    }
+}
 </style>

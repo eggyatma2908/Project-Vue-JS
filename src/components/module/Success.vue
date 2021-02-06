@@ -58,7 +58,7 @@
                     </div>
                     <div class="d-flex justify-content-end pb-2">
                         <div class="button"><img src="../../assets/share.png" alt="image11"></div>
-                        <button class="button1 ml-3 mr-3"><img class="icon mb-1 mr-2" src="../../assets/download.png" alt="image12">Download PDF</button>
+                        <button class="button1 ml-3 mr-3"><img class="icon" src="../../assets/download.png" alt="image12">Download PDF</button>
                         <router-link class="button2" :to="{path: '/main'}">Back to Home</router-link>
                     </div>
                 </div>
@@ -373,11 +373,15 @@ export default {
 .button1 {
     width: 30%;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
     font-family: Nunito Sans;
     font-style: normal;
     font-weight: bold;
-    font-size: 18px;
-    line-height: 25px;
+    font-size: 100%;
     box-shadow: 0px 6px 75px rgba(100, 87, 87, 0.05);
 
     border: none;
@@ -391,6 +395,10 @@ export default {
     outline: none;
 }
 
+.button1 img {
+    margin:  0 10px;
+}
+
 .button2 {
     width: 25%;
     height: 50px;
@@ -398,11 +406,12 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
 
     font-family: Nunito Sans;
     font-style: normal;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 100%;
 
     border: none;
     border-radius: 12px;
@@ -418,5 +427,12 @@ export default {
 
 .button2:focus {
     outline: none;
+}
+
+@media (max-width: 425px) {
+    .button1, .button2 {
+    flex-direction: column;
+    width: 40%;
+    }
 }
 </style>

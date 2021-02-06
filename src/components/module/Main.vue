@@ -471,7 +471,7 @@ export default {
 }
 
 .col-md-5 {
-    padding: 0px
+    padding-right: 0px
 }
 
 .encapsule {
@@ -707,6 +707,13 @@ export default {
     }
     .phone1 {
         font-size: 11px;
+    }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .col-md-5 {
+        padding: 0;
     }
 }
 
