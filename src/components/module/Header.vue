@@ -69,7 +69,7 @@ export default {
               showConfirmButton: false,
               timer: 2000
             })
-          } else if (err.response.data.err.message === 'Rejected: File accepted only JPG, JPEG, GIF & PNG.') {
+          } else {
             Swal.fire({
               icon: 'error',
               title: 'File accepted only JPG, JPEG, GIF & PNG',
