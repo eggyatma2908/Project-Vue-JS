@@ -62,14 +62,14 @@ export default {
           })
         })
         .catch((err) => {
-          if (err.response.data.err.message === 'Rejected: File accepted only JPG, JPEG, GIF & PNG.') {
+          if (err.message === 'Request failed with status code 403') {
             Swal.fire({
               icon: 'error',
               title: 'File accepted only JPG, JPEG, GIF & PNG',
               showConfirmButton: false,
               timer: 2000
             })
-          } else {
+          } else if (err.message === 'Network Error') {
             Swal.fire({
               icon: 'error',
               title: 'File to large',
