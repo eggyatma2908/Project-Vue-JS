@@ -62,6 +62,7 @@ export default {
           })
         })
         .catch((err) => {
+          console.log(err.response.data.err.message)
           if (err.response.data.err.message === 'File too large') {
             Swal.fire({
               icon: 'error',
