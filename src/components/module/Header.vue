@@ -62,18 +62,17 @@ export default {
           })
         })
         .catch((err) => {
-          console.log(err.response.data.err.message)
-          if (err.response.data.err.message === 'File too large') {
+          if (err.response.data.err.message === 'Rejected: File accepted only JPG, JPEG, GIF & PNG.') {
             Swal.fire({
               icon: 'error',
-              title: 'File to large',
+              title: 'File accepted only JPG, JPEG, GIF & PNG',
               showConfirmButton: false,
               timer: 2000
             })
           } else {
             Swal.fire({
               icon: 'error',
-              title: 'File accepted only JPG, JPEG, GIF & PNG',
+              title: 'File to large',
               showConfirmButton: false,
               timer: 2000
             })
