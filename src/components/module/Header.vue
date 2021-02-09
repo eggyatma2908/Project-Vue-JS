@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <div class="header">
-            <p class="logo">Zwallet</p>
+            <p v-styleLogo:logo>Zwallet</p>
             <div class="d-flex justify-content-between flex-box image-upload">
                 <div class="boxphoto">
                   <label for="photoprofile">
@@ -61,13 +61,22 @@ export default {
             timer: 1500
           })
         })
-        .catch(() => {
-          Swal.fire({
-            icon: 'error',
-            title: 'File to large or File accepted only JPG, JPEG, GIF & PNG',
-            showConfirmButton: false,
-            timer: 2000
-          })
+        .catch((err) => {
+          if (err.response.data.err.message === 'File too large') {
+            Swal.fire({
+              icon: 'error',
+              title: 'File to large',
+              showConfirmButton: false,
+              timer: 2000
+            })
+          } else if (err.response.data.err.message === 'Rejected: File accepted only JPG, JPEG, GIF & PNG.') {
+            Swal.fire({
+              icon: 'error',
+              title: 'File accepted only JPG, JPEG, GIF & PNG',
+              showConfirmButton: false,
+              timer: 2000
+            })
+          }
         })
     }
   },
@@ -100,18 +109,6 @@ body {
 
     margin: 0px 50px;
     padding: 20px 0px;
-}
-
-.logo {
-    margin-top: 10px;
-
-    font-family: Nunito Sans;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 180%;
-    line-height: 40px;
-
-    color: #6379F4;
 }
 
 .boxphoto {
