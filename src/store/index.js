@@ -124,7 +124,20 @@ export default new Vuex.Store({
     editPhone (context, payload) {
       return new Promise((resolve, reject) => {
         context.dispatch('interceptorRequest')
-        axios.post(`${process.env.VUE_APP_SERVICE_API}/users/${payload.userId}`, payload)
+        axios.patch(`${process.env.VUE_APP_SERVICE_API}/users/${payload.userId}`, payload)
+          .then((res) => {
+            const result = res.data.result
+            resolve(result)
+          })
+          .catch((err) => {
+            reject(err)
+          })
+      })
+    },
+    editPin (context, payload) {
+      return new Promise((resolve, reject) => {
+        context.dispatch('interceptorRequest')
+        axios.patch(`${process.env.VUE_APP_SERVICE_API}/users/editpin/${this.state.registeredUser.id}`, payload)
           .then((res) => {
             const result = res.data.result
             resolve(result)

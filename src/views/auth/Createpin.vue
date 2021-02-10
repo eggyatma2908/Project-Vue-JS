@@ -14,14 +14,14 @@
                     <p class="paragraph3">Secure Your Account, Your Wallet, and Your Data With 6 Digits PIN That You Created Yourself.</p>
                     <p class="paragraph4">Create 6 digits pin to secure all your money and your data in Zwallet app. Keep it secret and don’t tell anyone about your Zwallet account password and the PIN.</p>
                     <div class="box1">
-                        <input class="input1" type="text" maxlength="1" required>
-                        <input class="input2" type="text" maxlength="1" required>
-                        <input class="input3" type="text" maxlength="1" required>
-                        <input class="input4" type="text" maxlength="1" required>
-                        <input class="input5" type="text" maxlength="1" required>
-                        <input class="input6" type="text" maxlength="1" required>
+                        <input class="input1" type="text" maxlength="1" v-model="inputPin[0]" required>
+                        <input class="input2" type="text" maxlength="1" v-model="inputPin[1]" required>
+                        <input class="input3" type="text" maxlength="1" v-model="inputPin[2]" required>
+                        <input class="input4" type="text" maxlength="1" v-model="inputPin[3]" required>
+                        <input class="input5" type="text" maxlength="1" v-model="inputPin[4]" required>
+                        <input class="input6" type="text" maxlength="1" v-model="inputPin[5]" required>
                     </div>
-                    <button class="button" type="submit">Confirm</button>
+                    <button class="button" type="submit" @click="createPin">Confirm</button>
                 </div>
             </div>
         </div>
@@ -29,8 +29,48 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+import Swal from 'sweetalert2'
+
 export default {
-  name: 'Createpin'
+  name: 'Createpin',
+  data () {
+    return {
+      inputPin: []
+    }
+  },
+  methods: {
+    ...mapActions(['editPin']),
+    createPin () {
+      this.stringNumber = this.inputPin.map(e => parseInt(e))
+      this.pin = this.stringNumber.join('')
+      if (this.pin.length === 6) {
+        const payload = {
+          pin: this.pin
+        }
+        this.editPin(payload)
+          .then(() => {
+            this.$router.push('/auth/pinsuccess')
+          })
+          .catch(() => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Create pin Failed',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          })
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    }
+  }
+
 }
 </script>
 

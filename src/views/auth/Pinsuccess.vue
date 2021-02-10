@@ -14,7 +14,7 @@
                 <div class="box">
                     <p class="paragraph3">Your PIN Was Successfully Created</p>
                     <p class="paragraph4">Your PIN was successfully created and you can now access all the features in Zwallet. Login to your new account and start exploring!</p>
-                    <button class="button" type="submit">Login Now</button>
+                    <button class="button" type="submit" @click="goLogin">Login Now</button>
                 </div>
             </div>
         </div>
@@ -23,7 +23,12 @@
 
 <script>
 export default {
-  name: 'Pinsuccess'
+  name: 'Pinsuccess',
+  methods: {
+    goLogin () {
+      this.$router.push('/auth/login')
+    }
+  }
 }
 </script>
 

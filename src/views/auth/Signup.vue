@@ -76,7 +76,7 @@ export default {
       }
       this.signUp(payload)
         .then(() => {
-          this.$router.push('/auth/login')
+          this.$router.push('/auth/createpin')
           Swal.fire({
             icon: 'success',
             title: 'Register succesfuly',

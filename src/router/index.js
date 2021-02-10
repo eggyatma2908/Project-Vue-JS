@@ -150,19 +150,15 @@ const routes = [
         component: Resetpassword,
         redirect: '/'
       },
-      // (unused)
       {
         path: 'createpin',
         name: 'Createpin',
-        component: Createpin,
-        redirect: '/'
+        component: Createpin
       },
-      // (unused)
       {
         path: 'pinsuccess',
         name: 'Pinsuccess',
-        component: Pinsuccess,
-        redirect: '/'
+        component: Pinsuccess
       },
       // (unused)
       {
